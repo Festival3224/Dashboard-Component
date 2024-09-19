@@ -1,47 +1,96 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+  import { Icon } from '@iconify/vue';
+  import BaseTable from "./components/BaseTable.vue";
+  import BaseBadge from "@/components/BaseBadge.vue";
+
+  const columns = [
+    {key: "status", label: "Status" },
+    {key: "type", label: "Type" },
+    {key: "price", label: "Price" },
+    {key: "vendor", label: "Vendor" },
+    {key: "icon" },
+  ];
+
+  const rows = [
+    {
+      status: "Completed",
+      type: "Card payment",
+      typeInfo: "Visa card **** 4831",
+      price: "$182.94",
+      date: "Jan 17, 2024",
+      vendor: "Amazon",
+    },
+    {
+      status: "Completed",
+      type: "Card payment",
+      typeInfo: "Mastercard **** 6642",
+      price: "$99.00",
+      date: "Jan 17, 2024",
+      vendor: "Facebook",
+    },
+    {
+      status: "Pending",
+      type: "Bank payment",
+      typeInfo: "Account ****882",
+      price: "$249.94",
+      date: "Jan 17, 2024",
+      vendor: "Netflix",
+    },
+    {
+      status: "Canceled",
+      type: "Card payment",
+      typeInfo: "Amex card ****5666",
+      price: "$199.24",
+      date: "Jan 17, 2024",
+      vendor: "AmazonPrime",
+    }
+  ]
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <main class="min-h-screen grid place-items-center bg-[#FEE2E2] px-8">
+    <div class="flex flex-col bg-white max-w-screen-lg w-full overflow-x-auto rounded-lg shadow">
+      <div class="flex p-8">
+        <div>
+          <h2 class="text-2xl font-bold mb-1">Transactions</h2>
+          <p class="font-light text-slate-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+        </div>
+        <button class="flex items-center self-start gap-1 ml-auto text-[#4f46e5]">
+          <span>See All Transactions</span>
+          <Icon
+             icon="material-symbols:chevron-right-rounded"
+             width="1.2em" 
+             height="1.2em"  
+             style="color: #4f46e5" 
+          />
+        </button>
+      </div>
+      <BaseTable :rows="rows" :columns="columns">
+        <template #status="{ row }">
+          <div class="flex self-start">
+            <BaseBadge v-if="row.status === 'Completed'" :label="row.status" color="green"/>
+            <BaseBadge v-else-if="row.status === 'Pending'" :label="row.status" color="yellow"/>          
+            <BaseBadge v-else :label="row.status" color="red"/>
+          </div>
+        </template>
+        <template #type="{ row }">
+          <div class="flex flex-col">
+            <p class="font-bold">{{ row.typeInfo }}</p>
+            <p class="font-light text-slate-500">{{ row.type }}</p>
+          </div>
+        </template>
+        <template #price="{ row }">
+          <div class="flex flex-col">
+            <p class="font-bold">{{ row.price }}</p>
+            <p class="font-light text-slate-500">{{ row.date }}</p>
+          </div>
+        </template>
+        <template #icon>
+          <Icon icon="fluent:more-horizontal-28-filled" width="1.2em" height="1.2em" />
+        </template>
+      </BaseTable>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style></style>

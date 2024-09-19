@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      "Jakarta-Sans": ["Plus Jakarta Sans, sans-serif"],
+    },
   },
   plugins: [],
 }
