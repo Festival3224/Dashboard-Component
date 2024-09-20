@@ -1,6 +1,7 @@
 # dashboard-component
 
-This template should help get you started developing with Vue 3 in Vite.
+This template is the challenge #262 from webdevDaily.io, was developing with Vue 3 in Vite.
+This is a quite small component offers the ability to practice a fundamentals. I was using Iconify for the icons I need, and also I was using Tailwind CSS for styling.
 
 ## Recommended IDE Setup
 
